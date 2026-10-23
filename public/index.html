@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <meta
+        name="description"
+        content="Uma lista de tarefas simples para organizar seu dia."
+    >
+    <title>TaskFlow | Lista de Tarefas</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <main class="app">
+        <header class="app-header">
+            <div>
+                <p class="eyebrow">ORGANIZE SEU DIA</p>
+
+                <h1>TaskFlow<span>.</span></h1>
+
+                <p class="subtitle">
+                    Pequenos passos, grandes resultados.
+                </p>
+            </div>
+
+            <div class="task-summary" aria-live="polite">
+                <span id="task-count">0</span>
+                <span class="summary-label">concluídas</span>
+            </div>
+        </header>
+
+        <section class="task-panel" aria-labelledby="form-title">
+            <h2 id="form-title">Nova tarefa</h2>
+
+            <form id="task-form">
+                <label class="visually-hidden" for="task-input">
+                    Título da tarefa
+                </label>
+
+                <input
+                    type="text"
+                    id="task-input"
+                    name="titulo"
+                    placeholder="O que você precisa fazer?"
+                    maxlength="200"
+                    autocomplete="off"
+                    required
+                >
+
+                <button type="submit" id="add-button">
+                    Adicionar
+                </button>
+            </form>
+
+            <p
+                id="feedback"
+                class="feedback"
+                role="status"
+                aria-live="polite"
+            ></p>
+        </section>
+
+        <section class="tasks-section" aria-labelledby="tasks-title">
+            <div class="section-heading">
+                <h2 id="tasks-title">Suas tarefas</h2>
+
+                <span id="total-count" class="total-count">
+                    0 tarefas
+                </span>
+            </div>
+
+            <ul id="task-list" class="task-list">
+                <!-- As tarefas serão inseridas pelo JavaScript. -->
+            </ul>
+
+            <div id="empty-state" class="empty-state">
+                <div class="empty-icon" aria-hidden="true">✓</div>
+
+                <h3>Tudo começa por aqui</h3>
+
+                <p>
+                    Adicione sua primeira tarefa e organize suas prioridades.
+                </p>
+            </div>
+        </section>
+
+        <footer class="app-footer">
+            <p>Simples, organizado e feito para você.</p>
+        </footer>
+    </main>
+    <script src="./script.js"></script>
+</body>
+</html>

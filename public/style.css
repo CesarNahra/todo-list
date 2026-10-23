@@ -1,0 +1,478 @@
+/* =========================
+   1. Variáveis e reset
+   ========================= */
+
+:root {
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+
+    color: #202033;
+    background: #f5f5fa;
+
+    --primary: #6c5ce7;
+    --primary-hover: #5848d6;
+    --text: #202033;
+    --muted: #85859a;
+    --border: #e9e9f1;
+    --surface: #ffffff;
+    --success: #269c73;
+    --danger: #d94b59;
+    --radius: 16px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    min-width: 320px;
+    min-height: 100vh;
+    margin: 0;
+    padding: 48px 20px;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            #eeebff 0,
+            transparent 35%
+        ),
+        #f5f5fa;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:focus-visible,
+input:focus-visible {
+    outline: 3px solid #b8adff;
+    outline-offset: 3px;
+}
+
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* =========================
+   2. Estrutura principal
+   ========================= */
+
+.app {
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    margin-bottom: 32px;
+}
+
+.eyebrow {
+    margin: 0 0 8px;
+
+    color: var(--primary);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+h1 {
+    margin: 0;
+
+    color: var(--text);
+    font-size: clamp(2.2rem, 6vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -2px;
+}
+
+h1 span {
+    color: var(--primary);
+}
+
+.subtitle {
+    margin: 10px 0 0;
+
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* =========================
+   3. Contador
+   ========================= */
+
+.task-summary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+    width: 94px;
+    height: 94px;
+
+    border: 1px solid #e5e0ff;
+    border-radius: 24px;
+
+    background: #ffffff;
+    box-shadow: 0 8px 30px rgb(40 30 100 / 5%);
+}
+
+#task-count {
+    color: var(--primary);
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+.summary-label {
+    color: var(--muted);
+    font-size: 0.75rem;
+}
+
+/* =========================
+   4. Formulário
+   ========================= */
+
+.task-panel {
+    padding: 28px;
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+
+    background: var(--surface);
+    box-shadow: 0 12px 40px rgb(40 30 100 / 4%);
+}
+
+.task-panel h2,
+.section-heading h2 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 750;
+}
+
+#task-form {
+    display: flex;
+    gap: 12px;
+
+    margin-top: 20px;
+}
+
+#task-input {
+    width: 100%;
+    min-width: 0;
+    padding: 14px 16px;
+
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    color: var(--text);
+    background: #fbfbfe;
+
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
+}
+
+#task-input::placeholder {
+    color: #a4a4b5;
+}
+
+#task-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgb(108 92 231 / 10%);
+    outline: none;
+}
+
+#add-button {
+    flex-shrink: 0;
+    padding: 14px 20px;
+
+    border: none;
+    border-radius: 10px;
+
+    color: #ffffff;
+    background: var(--primary);
+
+    font-weight: 700;
+
+    transition:
+        background 0.2s,
+        transform 0.2s;
+}
+
+#add-button:hover:not(:disabled) {
+    background: var(--primary-hover);
+}
+
+#add-button:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+.feedback {
+    min-height: 0;
+    margin: 0;
+
+    color: var(--danger);
+    font-size: 0.85rem;
+}
+
+.feedback:not(:empty) {
+    margin-top: 12px;
+}
+
+/* =========================
+   5. Lista de tarefas
+   ========================= */
+
+.tasks-section {
+    margin-top: 36px;
+}
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+
+    margin-bottom: 18px;
+}
+
+.total-count {
+    color: var(--muted);
+    font-size: 0.85rem;
+}
+
+.task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    min-width: 0;
+    padding: 18px;
+
+    border: 1px solid var(--border);
+    border-radius: 12px;
+
+    background: var(--surface);
+
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
+}
+
+.task-item:hover {
+    border-color: #d8d2ff;
+    box-shadow: 0 5px 20px rgb(40 30 100 / 4%);
+}
+
+/* Checkbox */
+
+.task-checkbox {
+    flex-shrink: 0;
+
+    width: 20px;
+    height: 20px;
+    margin: 0;
+
+    accent-color: var(--success);
+    cursor: pointer;
+}
+
+/* Texto */
+
+.task-title {
+    flex: 1;
+    min-width: 0;
+
+    overflow-wrap: anywhere;
+
+    color: var(--text);
+    font-size: 0.95rem;
+    line-height: 1.5;
+
+    transition: color 0.2s;
+}
+
+.task-item.completed .task-title {
+    color: #a0a0b0;
+    text-decoration: line-through;
+}
+
+/* Botão de exclusão */
+
+.delete-button {
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+
+    width: 38px;
+    height: 38px;
+
+    border: none;
+    border-radius: 9px;
+
+    color: var(--muted);
+    background: transparent;
+
+    font-size: 1.2rem;
+
+    transition:
+        color 0.2s,
+        background 0.2s;
+}
+
+.delete-button:hover:not(:disabled) {
+    color: var(--danger);
+    background: #fff0f1;
+}
+
+/* =========================
+   6. Estado vazio
+   ========================= */
+
+.empty-state {
+    padding: 44px 24px;
+
+    border: 1px dashed #dcd9eb;
+    border-radius: var(--radius);
+
+    text-align: center;
+}
+
+.empty-icon {
+    display: grid;
+    place-items: center;
+
+    width: 52px;
+    height: 52px;
+    margin: 0 auto 16px;
+
+    border-radius: 16px;
+
+    color: var(--primary);
+    background: #eeebff;
+
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.empty-state h3 {
+    margin: 0;
+
+    color: var(--text);
+    font-size: 1rem;
+}
+
+.empty-state p {
+    max-width: 300px;
+    margin: 10px auto 0;
+
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.empty-state[hidden],
+.task-list[hidden] {
+    display: none;
+}
+
+/* =========================
+   7. Rodapé
+   ========================= */
+
+.app-footer {
+    margin-top: 36px;
+
+    color: var(--muted);
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+/* =========================
+   8. Acessibilidade
+   ========================= */
+
+.visually-hidden {
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+
+    white-space: nowrap;
+    border: 0;
+}
+
+/* =========================
+   9. Responsividade
+   ========================= */
+
+@media (max-width: 520px) {
+    body {
+        padding: 32px 16px;
+    }
+
+    .app-header {
+        align-items: flex-start;
+    }
+
+    .task-summary {
+        width: 78px;
+        height: 78px;
+
+        border-radius: 18px;
+    }
+
+    #task-count {
+        font-size: 1.7rem;
+    }
+
+    .task-panel {
+        padding: 20px;
+    }
+
+    #task-form {
+        flex-direction: column;
+    }
+
+    #add-button {
+        width: 100%;
+    }
+
+    .task-item {
+        gap: 10px;
+        padding: 14px;
+    }
+
+    .delete-button {
+        width: 34px;
+        height: 34px;
+    }
+}
